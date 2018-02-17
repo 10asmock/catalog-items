@@ -1,0 +1,26 @@
+<html>
+<head>
+  <link rel=stylesheet type=text/css href="{{url_for('static',
+  filename='styles.css')}}">
+</head>
+<body>
+
+<h1> List of Categories </h1>
+
+<a href="{{url_for('newCategory', category_id = category.id, newCategory = category_id)}}"> Create a New Category </a>
+
+</br>
+{% for i in category %}
+</br>
+<div class="name">
+{{i.name}}
+</br>
+<a href="{{url_for('editCategory', category_id = i.id)}}"> Edit </a>
+</br>
+<a href="{{url_for('deleteCategory', category_id = i.id)}}"> Delete </a>
+</div>
+</br>
+{% endfor %}
+
+</body>
+</html>
