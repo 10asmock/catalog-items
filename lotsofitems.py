@@ -1,25 +1,18 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, ForeignKey, Integer, String
+
 from database_setup import User, Category, CatalogItem, Base
 
 engine = create_engine('sqlite:///categoryitems.db')
-# Bind the engine to the metadata of the Base class so that the
-# declaratives can be accessed through a DBSession instance
+
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
-# A DBSession() instance establishes all conversations with the database
-# and represents a "staging zone" for all the objects loaded into the
-# database session object. Any change made against the objects in the
-# session won't be persisted into the database until you call
-# session.commit(). If you're not happy about the changes, you can
-# revert all of them back to the last commit by calling
-# session.rollback()
+
 session = DBSession()
 
-#Categories are Tech, Style, Outdoors, Household, Dude I Want That!,
-
+#Categories are Tech, Style, Outdoors, Household, Dude I Want That!
 
 #Items for Tech
 category1 = Category(name = "Tech")
@@ -28,8 +21,9 @@ session.add(category1)
 session.commit()
 
 
-catalogItem1 = CatalogItem(name = "goTenna", description = "Whether you’re skiing or camping you know how annoying it can be to get ahold of your friends (or even kids!) well the goTenna solves messaging without cell service. the goTenna Mesh uses an app to communicate (plus share locations!) with friends or family who also have a goTenna on them.",
+catalogItem1 = CatalogItem(name = "goTenna", description = "Whether you're skiing or camping you know how annoying it can be to get ahold of your friends. The goTenna solves messaging this by sending messages without cell service.",
 price = "$149.00", category = category1)
+
 
 session.add(catalogItem1)
 session.commit()
@@ -55,11 +49,12 @@ session.add(catalogItem4)
 session.commit()
 
 
-catalogItem5 = CatalogItem(name = "Fitbit Ionic Smartwatch", description = "Personalized guidance and insights. Your favorite songs and apps. All the features you love from Fitbit. This is the watch you’ve been waiting for. Also, who doesn't have one?",
+catalogItem5 = CatalogItem(name = "Fitbit Ionic Smartwatch", description = "Personalized guidance and insights. Your favorite songs and apps. All the features you love from Fitbit. This is the watch you've been waiting for.",
  price = "$299.95", category = category1)
 
 session.add(catalogItem5)
 session.commit()
+
 
 
 #Items for Style
@@ -96,8 +91,8 @@ session.add(catalogItem4)
 session.commit()
 
 
-catalogItem5 = CatalogItem(name = "NiteSpecs Lighted LED Reading Glasses", description = "NiteSpecs® LED reading glasses are a clever combination of reading glasses and lighting, giving you magnification and illumination all in one! Designed for men and women, NiteSpecs® LED readers are a great looking, quality solution to the problem of reading or working in the dark.",
- price = "$19.95", category = category2)
+catalogItem5 = CatalogItem(name = "NiteSPecs Lighted LED Reading Glasses", description = "NiteSpecs LED reading glasses are a clever combination of reading glasses and lighting, giving you the magnification and illumination all in one! Designed for men and women, NiteSpecs LED readers are a great looking, quality solution to the problem of reading in the dark.",
+price = "$19.95", category = category2)
 
 session.add(catalogItem5)
 session.commit()
@@ -123,7 +118,7 @@ catalogItem2 = CatalogItem(name = "Insect Shield Outdoor Blanket", description =
 session.add(catalogItem2)
 session.commit()
 
-catalogItem3 = CatalogItem(name = "Broil Chef Star Wars TIE Fighter Gas Grill", description = "Feeding a squadron of Imperial pilots can be tricky. Thankfully there’s the TIE fighter edition Broilchef portable BBQ. In place of twin ion engines, this grill has a #304 stainless steel burner that puts out 10,000 BTUs of grilling power.",
+catalogItem3 = CatalogItem(name = "Broil Chef Star Wars TIE Fighter Gas Grill", description = "Feeding a squadron of Imperial pilots can be tricky. Thankfully, there's a the TIE fighter edition Broilchef portable BBQ. In place of twin ion engines, this grill has a stainless steel burner that puts out 10,000 BTUs of grilling power.",
  price = "$249.99", category = category3)
 
 session.add(catalogItem3)
@@ -150,8 +145,8 @@ catalogItem1 = CatalogItem(name = "Elm Tree Bookshelf", description = "Full bodi
 session.add(catalogItem1)
 session.commit()
 
-catalogItem2 = CatalogItem(name = "Spardis Spartan Shield XXL Fireproof Money Bag", description = "LARGEST FIREPROOF MONEY BAG – Measuring 16x12x3.5, Spartan Shield XXL is easily the largest fire resistant bag on Amazon. Our extra large fireproof bag provides ample space to store a laptop, tablet, passports, expensive jewelry, gold, diamond rings, cash, wristwatch, legal docs, folders & more. Never crush your docs with this perfect storage accessory.",
- price = "$32.68", category = category4)
+catalogItem2 = CatalogItem(name = "Spardis Spartan Shield XXL Fireproof Money Bag", description = "Largest Fireproof Money Bag - Measuring 16x12x3.5, Spartan Shield XXL is easily the largest fire resistant bag on Amazon. Our extra large fireproof bag provides ample space to store a laptop, tablet, passwords, and expresive jewlry.",
+price = "$32.68", category = category4)
 
 session.add(catalogItem2)
 session.commit()
@@ -168,7 +163,7 @@ catalogItem4 = CatalogItem(name = "Logical Fallacies Poster", description = "Thi
 session.add(catalogItem4)
 session.commit()
 
-catalogItem5 = CatalogItem(name = "Effie", description = "effie is a new domestic appliance that irons your clothes for you. Hang your clothes up straight from the washing machine, click go, look smart. It’s as simple as that, so why beat around the bush.",
+catalogItem5 = CatalogItem(name = "Effie", description = "Effie is a new domestic appliance that irons your clothes for you. Hang your clothes up straight from the washing machine, click go, and look smart. It's as simple as that!",
  price = "$985.66", category = category4)
 
 session.add(catalogItem5)
@@ -201,7 +196,7 @@ catalogItem3 = CatalogItem(name = "GameSir G5", description = "GameSir G5 is the
 session.add(catalogItem3)
 session.commit()
 
-catalogItem4 = CatalogItem(name = "Ephemeral’s Tattoo Ink", description = "Want a tattoo without the lifetime commitment? Ephemeral Tattoos makes inks that are applied like regular tattoos but disappear on their own. Reserve a spot at your city's exclusive pop-up shop today!",
+catalogItem4 = CatalogItem(name = "Ephemeral's Tattoo Ink", description = "Want a tattoo without the lifetime committment? Ephemeral Tattoos makes inks that are applied like regular tattoos but disappear on their own. Reserve a spot at your city's exclusive pop-up shop today!",
  price = "Varies", category = category5)
 
 session.add(catalogItem4)
@@ -209,3 +204,4 @@ session.commit()
 
 
 print "added catalog items!"
+
