@@ -5,8 +5,21 @@
     box-sizing: border-box;
 }
 
+head, body,
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+.vertical-center {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
 .signin {
-  text-align: center
+  text-align: center;
 }
 
 body {
