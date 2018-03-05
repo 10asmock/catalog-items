@@ -9,6 +9,7 @@ head, body,
 img {
   height: auto;
   max-width: 100%;
+  font-family: 'Raleway', sans-serif;
 }
 
 .vertical-center {
@@ -18,10 +19,26 @@ img {
   align-items: center;
 }
 
+.container {
+  content: 5em inherit;
+}
+
 .signin {
   text-align: center;
 }
 
 body {
   background-color: #333;
+}
+
+h2 {
+  color: #fff;
+}
+
+.sign-connections {
+  margin: 18px 0;
+  border: 2px solid rgba(255,255,255,0.15);
+  padding: 10px 0px 0px 40px;
+  border-radius: 4px;
+  padding-right width: 50%
 }
