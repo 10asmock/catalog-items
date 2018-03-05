@@ -301,11 +301,14 @@ def editCatalogItem(category_id, item_id):
         return redirect('/login')
     editedCatalogItem = session.query(CatalogItem).filter_by(id = item_id).one()
     if request.method == 'POST':
-        if request.form['name']:
-            editedItem.name = request.form['name']
+        if request.form["name"]:
+            editedCatalogItem.name = request.form["name"]
+        if request.form["price"]:
+            editedCatalogItem.price = request.form["price"]
+        if request.form["description"]:
+            editedCatalogItem.description = request.form["description"]
         session.add(editedCatalogItem)
         session.commit()
-        flash("Catalog item has been edited!")
         return redirect(url_for('showCatalogItems', category_id = category_id))
     else:
         return render_template('editcatalogitem.html', category_id=category_id, item_id = item_id, item = editedCatalogItem)
