@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='catalog.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Fanwood+Text" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+</head>
+<body>
+    <header class="top-category-banner" style="height: 288px">
+      <div class="container">
+        <h5 class="category col-lg-2" style="width:180px;"> category </h5>
+      <h1 class="category-title col-lg-2 mx-auto" style="width:200px;"> {{category.name}} </h1>
+      <div class="row">
+        <div class="d-inline-flex p-0">
+        <div class="edit-delete-new col-lg-2 offset-lg-1" style="width:200px;">
+          <a class="edit" href="{{url_for('editCategory', category_id = category.id)}}"> edit. </a>
+        </div>
+        <div class="edit-delete-new col-md-2 offset-3" style="width:200px;">
+          <a class="delete" href="{{url_for('deleteCategory', category_id = category.id)}}"> delete. </a>
+        </div>
+      </div>
+    </div>
+        <div class="edit-delete-new col-lg-2 offset-lg-5" style="width:200px;">
+          <a class="new" href="{{url_for('showCatalogItems', category_id = category.id, newCatalogItem = items.id)}}"> create. </a>
+        </div>
+        </div>
+        </div>
+      </div>
+  </header>
+<h2 class="catalog-header"> catalog. </h2>
+
+{% for i in items %}
+<div class="container">
+  <div class="row-block">
+    <div class="col-md-4">
+    <div class="items-list">
+        <div class="name">
+          {{i.name}}
+        </div>
+        <p class="price">
+          {{i.price}}
+        </p>
+        <p class="description">
+          {{i.description}}
+        </p>
+        <a class="edit-item" href="{{url_for('editCatalogItem', category_id = category.id, item_id = i.id)}}"> Edit </a>
+        <a class="delete-item" href="{{url_for('deleteCatalogItem', item_id = i.id, category_id = category.id)}}"> Delete </a>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+</body>
+</html>
