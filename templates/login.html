@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link rel=stylesheet type=text/css href="{{url_for('static',
   filename='login.css')}}">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
   <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
@@ -21,24 +22,26 @@
 
 <!-- GOOGLE PLUS SIGN IN-->
           <form class="login-page">
-            <div class="jumbotron vertical-center">
+            <div class="vertical-center">
               <div class="container">
                 <div class="row">
                   <div class="col-xs-12 mx-auto">
-                    <h3 class="signin"> Sign inize me. </h3>
-              <div class="g-signin"
-              data-scope="openid email"
-              data-clientid="891540312029-n5lim60jbel1mdhl8pphi95v91juv17b.apps.googleusercontent.com"
-              data-redirecturi="postmessage"
-              data-accesstype="offline"
-              data-cookiepolicy="single_host_origin"
-              data-callback="signInCallback"
-              data-approvalprompt="force">
+                    <h2 class="signin"> Sign inize me. </h2>
+                    <div class="sign-connections">
+                      <div class="g-signin"
+                      data-scope="openid email"
+                      data-clientid="891540312029-n5lim60jbel1mdhl8pphi95v91juv17b.apps.googleusercontent.com"
+                      data-redirecturi="postmessage"
+                      data-accesstype="offline"
+                      data-cookiepolicy="single_host_origin"
+                      data-callback="signInCallback"
+                      data-approvalprompt="force">
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </form>
+          </form>
 
 <div id="result"></div>
 
