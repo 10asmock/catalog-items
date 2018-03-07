@@ -22,13 +22,37 @@ header {
   position: relative;
 }
 
+a:link {
+    text-decoration: none;
+    background-color: none;
+    color: black;
+}
+
+a:visited {
+    text-decoration: none;
+    background-color: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    background-color: none;
+    color: #BC9961;
+    transition: all .3s linear;
+}
+
+a:active {
+    text-decoration: none;
+    background-color: none;
+    color: #BC9961;
+}
+
 p {
   color: #76787a;
 }
 
 img {
   vertical-align: middle;
-  border-style: none;
 }
 
 .top-category-banner {
@@ -141,7 +165,25 @@ img {
 }
 
 .top-menu {
+  min-width: 330px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  background-color: #E0E0E0;
+  color: #444649;
+}
 
+.logo {
+  padding-right: 0px;
+  padding-left: 20px;
+  margin-bottom: 2px;
+  font-size: 11.9px;
+  color: #4c4c4c;
+}
+
+.udacity {
+  margin-top: 7px;
+  margin-bottom: 2px;
 }
 
 .container {
