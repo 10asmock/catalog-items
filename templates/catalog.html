@@ -6,6 +6,7 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='catalog.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Fanwood+Text" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 </head>
 <body>
@@ -27,26 +28,45 @@
     </div>
   </header>
 <div class="top-menu">
-  <div class="container menu">
+  <div class="container-fluid menu">
     <div class="row">
-      <div class="col-md-3 logo">
-        <img src="https://i.imgur.com/cTNXzAA.png" class="udacity" alt="udacity"></br>
-        Item Catalog: A Udacity Project.
+      <div class="col-lg-2 logo">
+      <img src="https://i.imgur.com/VoViS9I.png?1" class="full-name" alt="full-name" height="38" width="60">
+      <span class="line-break">|</span>
+      <div class="job"> Full Stack </br> Developer </div>
       </div>
-      <nav class="top-main-menu">
-
+      <div class="col-md-8">
+      <nav id="global-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('showCategories')}}">GitHub</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+            <div class="dropdown-menu">
+              {% for i in id %}
+              <a class="dropdown-item" href="#one">{{category.id}}</a>
+              <div role="separator" class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#two"></a>
+              <div role="separator" class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#three"></a>
+              {% endfor %}
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#fat">Home</a>
+          </li>
+        </nav>
+      </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
 <h2 class="catalog-header"> catalog. </h2>
 
-
-{% for i in items %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-4">
-    <div class="items-list">
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      {% for i in items %}
+      <div class="col-lg-3">
         <div class="name">
           {{i.name}}
         </div>
@@ -59,10 +79,11 @@
         <a class="edit-item" href="{{url_for('editCatalogItem', category_id = category.id, item_id = i.id)}}"> Edit </a>
         <a class="delete-item" href="{{url_for('deleteCatalogItem', item_id = i.id, category_id = category.id)}}"> Delete </a>
       </div>
+      {% endfor %}
       </div>
     </div>
   </div>
-{% endfor %}
+</section>
 
 </body>
 </html>
