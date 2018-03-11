@@ -1,0 +1,26 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='deletecatalogitem.css')}}">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1> Are you sure you want to delete {{items.name}}? </h1>
+      <div class="button-y">
+        <a href="{{url_for('deleteCatalogItem', category_id = items.category_id, item_id = items.id)}}" method="post"> Yes </a>
+      </div>
+      <div class="button-n">
+        <a href="{{url_for('showCatalogItems', category_id = items.category_id)}}"> No </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
