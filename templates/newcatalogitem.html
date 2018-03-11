@@ -1,0 +1,30 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='newcatalogitem.css')}}">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <form action="{{url_for('newCatalogItem', category_id = category_id)}}" method="POST">
+        <h1> Create Item </h1>
+        <p>Name:</p>
+        <input type="text" class="button-new" id="name" name="name">
+        <p>Price:</p>
+        <input type="text" class="button-new" id="price" name="price">
+        <p>Description:</p>
+        <input type="text" class="button-new" id="description" name="description"></br>
+        <input type="submit" class="button-new" value="Create">
+        <div class="button-c">
+          <a href="{{url_for('showCatalogItems', category_id = category_id)}}"> Cancel </a>
+        </div>
+  </form>
+</body>
+</html>
