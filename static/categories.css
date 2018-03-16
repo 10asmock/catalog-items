@@ -1,0 +1,84 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+head, body,
+img {
+height: auto;
+max-width: 100%;
+}
+
+header {
+  background-image: url("https://i.imgur.com/cIXBIJg.jpg?1");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
+  position: relative;
+}
+
+body {
+  background-color: #333;
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #fff;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    padding-right: 70px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    overflow: hidden;
+}
+
+.udacity-logo {
+  padding-left: 70px;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: right;
+    color: #fff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    text-decoration: none;
+    background-color: none;
+    color: #BC9961;
+    transition: all .3s linear
+}
+
+.dotted-nav-border {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 60px;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 2px;
+}
+
+.main {
+  text-align: center;
+  margin-top: 30px;
+}
+
+hr.dotted-slogan-border {
+	border-top: 2px dashed #8c8b8b;
+}
+
+.categories-list {
+  display: inline-block;
+  padding: 10px;
+}
