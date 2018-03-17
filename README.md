@@ -23,7 +23,7 @@ An item catalog written primarily in Flask, SQLAlchemy, Bootstrap, and CSS which
 
 - Enjoy, explore, and maybe buy an item or two from their respective manufacturer!
 
-##TOOLS USED
+## TOOLS USED
 
 - Python 3.6 editor IDLE
 - Flask
