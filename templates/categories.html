@@ -17,9 +17,9 @@
   <nav class="global-nav">
     <div class="topnav">
     <img src="https://i.imgur.com/iTLkMbp.png?1" class="udacity-logo" alt="udacity-logo">
-    <a href="#github">Github</a>
-    <a href="#home">Home</a>
-    <a href="#login">Login</a>
+    <a href="https://github.com/10asmock/catalog-items">Github</a>
+    <a href="{{url_for('showCategories')}}">Home</a>
+    <a href="/login">Login</a>
     <hr class="dotted-nav-border">
   </div>
 </nav>
@@ -29,14 +29,22 @@
     <img src="https://i.imgur.com/PSHPA3O.jpg?1" class="living-room" alt="living-room">
 </div>
 
-<hr class="dotted-slogan-border">
-<span class="category-header"> list of categories. </span></br>
-<a href="{{url_for('newCategory', category_id = category.id, newCategory = category_id)}}"> Create a New Category </a>
+<hr class="dotted-border top">
+<div class="category-list-header">
+  <span class="category-header"> categories. </span></br>
+</div>
+<div class="category-new">
+  <a href="{{url_for('newCategory', category_id = category.id, newCategory = category_id)}}"> Create.</a>
+</div>
+<div class="category-loop">
 {% for i in category %}
 <div class="categories-list">
 <a href="{{url_for('showCatalogItems', category_id = i.id)}}"> {{i.name}} </a>
 </div>
 {% endfor %}
+</div>
+<hr class="dotted-border bottom">
+
 <div class="main-section-home">
   <h3 class="main-section-slogan">Live You.</h3>
 </div>
