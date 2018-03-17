@@ -15,7 +15,7 @@
     <div class="col-lg-12">
       <h1> Are you sure you want to delete {{items.name}}? </h1>
       <div class="button-y">
-        <a href="{{url_for('deleteCatalogItem', category_id = items.category_id, item_id = items.id)}}" method="post"> Yes </a>
+        <a href="{{url_for('deleteCatalogItem', category_id = items.category_id)}}" method="post"> Yes </a>
       </div>
       <div class="button-n">
         <a href="{{url_for('showCatalogItems', category_id = items.category_id)}}"> No </a>
