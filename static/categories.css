@@ -74,11 +74,58 @@ body {
   margin-top: 30px;
 }
 
-hr.dotted-slogan-border {
+hr.dotted-border {
 	border-top: 2px dashed #8c8b8b;
 }
 
-.categories-list {
+.category-list-header {
+  text-align: center;
+  font-size: 30px;
+  margin-top: -15px;
+}
+
+.category-new {
+  text-align: center;
+  color: #909192;
+  font-size: 18px;
+}
+
+.category-new a {
+  color: #909192;
+}
+
+.category-new a:hover {
+  text-align: center;
+  text-decoration: none;
+  background-color: none;
+  color: #BC9961;
+  transition: all .3s linear
+}
+
+.category-loop {
+  text-align: center;
+}
+
+.categories-list a {
   display: inline-block;
-  padding: 10px;
+  padding: 6px;
+  margin-top: -3px;
+  color: #909192;
+  font-size: 18px;
+  font-style: normal;
+  line-height: 20px;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.categories-list a:hover {
+  text-align: center;
+  text-decoration: none;
+  background-color: none;
+  color: #BC9961;
+  transition: all .3s linear
+}
+
+.main-section-slogan {
+  text-align: center;
 }
