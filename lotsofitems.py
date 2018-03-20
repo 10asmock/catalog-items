@@ -64,6 +64,12 @@ session.add(catalogItem5)
 session.commit()
 
 
+catalogItem6 = CatalogItem(name = "The Boring Company Flamethrower", description = "Elon Musk's The Boring Company has fired up its next gimmick fun and cheeky piece of merchandise for Hyperloop supporters. The Flamethrower is now available for pre-order.",
+ price = "$500", category = category1)
+
+session.add(catalogItem6)
+session.commit()
+
 
 #Items for Style
 category2 = Category(name = "Style")
@@ -107,6 +113,12 @@ session.add(catalogItem5)
 session.commit()
 
 
+catalogItem6 = CatalogItem(name = "Men's 505 Regular Fit Jean", description = "The original zip fly, first created in 1967, Levi's 505 Regular Fit Jeans are on of the most popular straight fits. Beloved for their classic straight leg style, they are cut to sit at the waist.",
+ price = "$20.27", category = category2)
+
+ session.add(catalogItem6)
+ session.commit()
+
 
 #Items for Outdoors
 category3 = Category(name = "Outdoors")
@@ -139,6 +151,19 @@ catalogItem4 = CatalogItem(name = "LOTR Fire Pit Eye Tower", description = "ONE 
 session.add(catalogItem4)
 session.commit()
 
+
+catalogItem5 = CatalogItem(name = "Ddyoutdoor™ 07-281 Fishing Cap", description = "New Sun Cap with Flaps (Flaps are removable), Complete Sun Protection UVA / UVB. Ideal for fishing, camping, boating, or gardening. One size fits all.",
+ price = "$14.98", category = category3)
+
+ session.add(catalogItem5)
+ session.commit()
+
+
+catalogItem6 = CatalogItem(name = "Lindo Trucker Hat", description = "Simple and clean design for those that love the outdoors - camping, hiking, fishing, hunting. The embroidered logo is placed on a high quality hat. The front panels are structured with mesh back.",
+ price = "$22.99", category = category3)
+
+ session.add(catalogItem6)
+ session.commit()
 
 
 #Items for Household
@@ -179,6 +204,12 @@ session.add(catalogItem5)
 session.commit()
 
 
+catalogItem6 = CatalogItem(name = "Hammock Floors", description = "I don’t know about you but I would sure love to have a hammock in my home. I don’t have any outdoor space where I could put one but hammocks can also be installed indoors.",
+ price = "Varies", category = category4)
+
+session.add(catalogItem6)
+session.commit()
+
 
 #Items for Uncommon Goods
 category5 = Category(name = "Uncommon Goods")
@@ -210,5 +241,20 @@ catalogItem4 = CatalogItem(name = "Ephemeral's Tattoo Ink", description = "Want 
 
 session.add(catalogItem4)
 session.commit()
+
+
+catalogItem5 = CatalogItem(name = "Digital Tape Measure, 16 Feet, Red", description = "The tape measure has remained virtually unchanged for over 100 years until now. The large digital display provides easy reading while the advance features are readily accessible.",
+ price = "$27.00", category = category5)
+
+session.add(catalogItem5)
+session.commit()
+
+
+catalogItem6 = CatalogItem(name = "X-Mode Energy Shots on Tap", description = "Forget energy drinks, forget coffee, forget energy shots like Five Hour Energy – they are now relics of the past. X-Mode is changing the game by putting energy on tap!",
+ price = "$29.99", category = category5)
+
+session.add(catalogItem6)
+session.commit()
+
 
 print "added catalog items!"
