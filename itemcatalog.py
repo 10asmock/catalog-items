@@ -259,9 +259,10 @@ def deleteCategory(category_id):
     if request.method == 'POST':
         session.delete(deletedCategory)
         session.commit()
-        return redirect(url_for('showCatalogItems'))
+        return redirect(url_for('showCategories'))
     else:
-        return render_template('deleteCategory.html', category_id = category_id, category = deletedCategory)
+        return render_template('deleteCategory.html', category_id = category_id,
+                               category = deletedCategory)
 
 
 # Show all catalog items for a specific category
@@ -280,8 +281,10 @@ def newCatalogItem(category_id):
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
-        newCatalogItem = CatalogItem(name=request.form['name'], description=request.form['description'],
-        price=request.form['price'], category_id=category_id)
+        newCatalogItem = CatalogItem(name=request.form['name'],
+                                     description=request.form['description'],
+                                     price=request.form['price'],
+                                     category_id=category_id)
         session.add(newCatalogItem)
         session.commit()
         return redirect(url_for('showCatalogItems', category_id = category_id))
@@ -306,7 +309,9 @@ def editCatalogItem(category_id, item_id):
         session.commit()
         return redirect(url_for('showCatalogItems', category_id = category_id))
     else:
-        return render_template('editcatalogitem.html', category_id=category_id, item_id = item_id, item = editedCatalogItem)
+        return render_template('editcatalogitem.html', category_id=category_id,
+                               item_id = item_id,
+                               item = editedCatalogItem)
 
 
 # Delete a catelog item of a specific category
