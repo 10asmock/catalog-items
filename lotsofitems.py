@@ -116,8 +116,8 @@ session.commit()
 catalogItem6 = CatalogItem(name = "Men's 505 Regular Fit Jean", description = "The original zip fly, first created in 1967, Levi's 505 Regular Fit Jeans are on of the most popular straight fits. Beloved for their classic straight leg style, they are cut to sit at the waist.",
  price = "$20.27", category = category2)
 
- session.add(catalogItem6)
- session.commit()
+session.add(catalogItem6)
+session.commit()
 
 
 #Items for Outdoors
@@ -152,18 +152,18 @@ session.add(catalogItem4)
 session.commit()
 
 
-catalogItem5 = CatalogItem(name = "Ddyoutdoor™ 07-281 Fishing Cap", description = "New Sun Cap with Flaps (Flaps are removable), Complete Sun Protection UVA / UVB. Ideal for fishing, camping, boating, or gardening. One size fits all.",
+catalogItem5 = CatalogItem(name = "Ddyoutdoor 07-281 Fishing Cap", description = "New sun cap with flaps (Flaps are removable), complete sun protection UVA / UVB. Ideal for fishing, camping, boating, or gardening. One size fits all.",
  price = "$14.98", category = category3)
 
- session.add(catalogItem5)
- session.commit()
+session.add(catalogItem5)
+session.commit()
 
 
 catalogItem6 = CatalogItem(name = "Lindo Trucker Hat", description = "Simple and clean design for those that love the outdoors - camping, hiking, fishing, hunting. The embroidered logo is placed on a high quality hat. The front panels are structured with mesh back.",
  price = "$22.99", category = category3)
 
- session.add(catalogItem6)
- session.commit()
+session.add(catalogItem6)
+session.commit()
 
 
 #Items for Household
