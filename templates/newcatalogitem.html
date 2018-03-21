@@ -13,7 +13,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">
-      <form action="{{url_for('newCatalogItem', category_id = category_id, newCatalogItem = i.id)}}" method="POST">
+      <form action="{{url_for('newCatalogItem', category_id = category_id, newCatalogItem = category_id)}}" method="POST">
         <h1> Create Item </h1>
         <p>Name:</p>
         <input type="text" class="button-new" id="name" name="name">
