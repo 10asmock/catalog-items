@@ -24,7 +24,7 @@
         <a class="delete" href="{{url_for('deleteCategory', category_id = category.id)}}"> delete. </a>
       </div>
       <div class="new-category" style="width:80px;">
-        <a class="new" href="{{url_for('showCatalogItems', category_id = category.id, newCatalogItem = items.id)}}"> create. </a>
+        <a class="new" href="{{url_for('newCatalogItem', category_id = category.id, newCatalogItem = items.id)}}"> create. </a>
       </div>
       <hr class="seperator-bottom">
     </div>
