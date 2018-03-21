@@ -136,8 +136,9 @@ def gconnect():
 
 # User Helper Functions
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session[
-                   'email'], picture=login_session['picture'])
+    newUser = User(name=login_session['username'],
+                   email=login_session['email'],
+                   picture=login_session['picture'])
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
@@ -244,7 +245,8 @@ def editCategory(category_id):
         session.commit()
         return redirect(url_for('showCategories', category_id = category_id))
     else:
-        return render_template('editCategory.html', category_id = category_id, category = editedCategory)
+        return render_template('editCategory.html', category_id = category_id,
+                               category = editedCategory)
 
 
 # Delete an existing category
@@ -257,7 +259,7 @@ def deleteCategory(category_id):
     if request.method == 'POST':
         session.delete(deletedCategory)
         session.commit()
-        return redirect(url_for('showCatalogItems', category_id = category_id))
+        return redirect(url_for('showCatalogItems'))
     else:
         return render_template('deleteCategory.html', category_id = category_id, category = deletedCategory)
 
