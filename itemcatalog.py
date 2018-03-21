@@ -216,7 +216,6 @@ def newCategory():
             user_id=login_session['user_id'])
             session.add(newCategory)
             session.commit()
-            flash("New category created!")
             return redirect(url_for('showCategories', category = newCategory))
     else:
             return render_template('newCategory.html', category = id)
@@ -233,7 +232,6 @@ def editCategory(category_id):
             editedCategory.name = request.form['name']
         session.add(editedCategory)
         session.commit()
-        flash("Category has been edited!")
         return redirect(url_for('showCategories', category_id = category_id))
     else:
         return render_template('editCategory.html', category_id = category_id, category = editedCategory)
@@ -249,9 +247,9 @@ def deleteCategory(category_id):
     if request.method == 'POST':
         session.delete(deletedCategory)
         session.commit()
-        return redirect(url_for('showCategories', category_id = category_id))
+        return redirect(url_for('showCatalogItems', category_id = category_id))
     else:
-        return render_template('deleteCategory.html', category = deletedCategory)
+        return render_template('deleteCategory.html', category_id = category_id, category = deletedCategory)
 
 
 # Show all catalog items for a specific category
@@ -269,19 +267,14 @@ def showCatalogItems(category_id):
 def newCatalogItem(category_id):
     if 'username' not in login_session:
         return redirect('/login')
-    newCatalogItem = session.query(CatalogItem).filter_by(id = category_id).one()
     if request.method == 'POST':
-        if request.form["name"]:
-            newCatalogItem.name = request.form["name"]
-        if request.form["price"]:
-            newCatalogItem.price = request.form["price"]
-        if request.form["description"]:
-            newCatalogItem.description = request.form["description"]
+        newCatalogItem = CatalogItem(name=request.form['name'], description=request.form['description'],
+        price=request.form['price'], category_id=category_id)
         session.add(newCatalogItem)
         session.commit()
         return redirect(url_for('showCatalogItems', category_id = category_id))
     else:
-        return render_template('newcatalogitem.html', category_id = category_id, newCatalogItem = i.items)
+        return render_template('newcatalogitem.html', category_id = category_id)
 
 # Edit a catalog item for a specific category
 @app.route('/categories/<int:category_id>/items/<int:item_id>/edit/',
