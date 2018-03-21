@@ -13,13 +13,15 @@
     <div class="row">
       <div class="col-lg-12">
         <h1> Are you sure you want to delete {{category.name}}? </h1>
+        <form>
         <div class="button-y">
-          <a href="{{url_for('deleteCategory', category_id = category.id, deletedCategory = category_id)}}" method="post"> Yes </a>
+          <button formaction="{{url_for('deleteCategory', category_id = category_id)}}" formmethod="POST"> Yes </button>
         </div>
         <div class="button-n">
-          <a href="{{url_for('showCategories', category_id = category.id)}}"> No </a>
+          <a href="{{url_for('showCatalogItems', category_id = category_id)}}"> No </a>
         </div>
       </div>
     </div>
+  </form>
   </body>
   </html>
