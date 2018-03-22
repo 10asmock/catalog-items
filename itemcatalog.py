@@ -237,6 +237,8 @@ def newCategory():
 def editCategory(category_id):
     if 'username' not in login_session:
         return redirect('/login')
+    if 'username' not in login_session['user_id']:
+        return redirect('/login')
     editedCategory = session.query(Category).filter_by(id=category_id).one()
     if request.method == 'POST':
         if request.form['name']:
@@ -254,6 +256,8 @@ def editCategory(category_id):
             methods = ['GET','POST'])
 def deleteCategory(category_id):
     if 'username' not in login_session:
+        return redirect('/login')
+    if 'username' not in login_session['user_id']:
         return redirect('/login')
     deletedCategory = session.query(Category).filter_by(id = category_id).one()
     if request.method == 'POST':
@@ -297,6 +301,8 @@ def newCatalogItem(category_id):
 def editCatalogItem(category_id, item_id):
     if 'username' not in login_session:
         return redirect('/login')
+    if 'username' not in login_session['user_id']:
+        return redirect('/login')
     editedCatalogItem = session.query(CatalogItem).filter_by(id = item_id).one()
     if request.method == 'POST':
         if request.form["name"]:
@@ -319,6 +325,8 @@ def editCatalogItem(category_id, item_id):
             methods = ['GET','POST'])
 def deleteCatalogItem(category_id, item_id):
     if 'username' not in login_session:
+        return redirect('/login')
+    if 'username' not in login_session['user_id']:
         return redirect('/login')
     deletedCatalogItem = session.query(CatalogItem).filter_by(id = item_id).one()
     if request.method == 'POST':
