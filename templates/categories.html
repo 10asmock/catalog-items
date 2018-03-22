@@ -19,7 +19,11 @@
     <img src="https://i.imgur.com/iTLkMbp.png?1" class="udacity-logo" alt="udacity-logo">
     <a href="https://github.com/10asmock/catalog-items">Github</a>
     <a href="{{url_for('showCategories')}}">Home</a>
-    <a href="/login">Login</a>
+    {% if 'username' not in session %}
+      <a href="{{url_for('showLogin')}}"> Login </a>
+    {% else %}
+      <a href="{{url_for('gdisconnect')}}"> Logout</a>
+    {% endif %}
     <hr class="dotted-nav-border">
   </div>
 </nav>
