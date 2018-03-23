@@ -130,7 +130,6 @@ def gconnect():
               '-webkit-border-radius: 150px;' \
               '-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
-    print "done!"
     return output
 
 
@@ -214,10 +213,23 @@ def catalogItemJSON(category_id, item_id):
 def showCategories():
     category = session.query(Category).all()
     return render_template('categories.html', category = category)
+  
+#Python decorator
+def login_required(function):
+    @wraps(function)
+    def wrapper():
+        if 'username' in login_session:
+            function()
+        else:
+            flash('A user must be logged to add a new item.')
+            response = make_response(json.dumps(\"A user must be logged to add a new item.\"), 401)
+            return response
+    return wrapper
 
 
 # Create a new category
 @app.route('/categories/new/', methods=['GET','POST'])
+@login_required
 def newCategory():
     if 'username' not in login_session:
         return redirect('/login')
@@ -234,12 +246,14 @@ def newCategory():
 
 # Edit an existing category
 @app.route('/categories/<int:category_id>/edit/', methods=['GET', 'POST'])
+@login_required
 def editCategory(category_id):
+    editedCategory = session.query(Category).filter_by(id=category_id).one()
     if 'username' not in login_session:
         return redirect('/login')
-    if 'username' not in login_session['user_id']:
-        return redirect('/login')
-    editedCategory = session.query(Category).filter_by(id=category_id).one()
+    if editedCategory.user_id != login_session['user_id']:
+        return \"<script>function myFunction() {alert('You are not authorized to edit this restaurant. Please
+                create your own restaurant in order to edit.');}</script><body onload='myFunction()'>\"
     if request.method == 'POST':
         if request.form['name']:
             editedCategory.name = request.form['name']
@@ -254,6 +268,7 @@ def editCategory(category_id):
 # Delete an existing category
 @app.route('/categories/<int:category_id>/delete/',
             methods = ['GET','POST'])
+@login_required
 def deleteCategory(category_id):
     if 'username' not in login_session:
         return redirect('/login')
@@ -298,6 +313,7 @@ def newCatalogItem(category_id):
 # Edit a catalog item for a specific category
 @app.route('/categories/<int:category_id>/items/<int:item_id>/edit/',
             methods = ['GET','POST'])
+@login_required
 def editCatalogItem(category_id, item_id):
     if 'username' not in login_session:
         return redirect('/login')
@@ -323,6 +339,7 @@ def editCatalogItem(category_id, item_id):
 # Delete a catelog item of a specific category
 @app.route('/categories/<int:category_id>/items/<int:item_id>/delete/',
             methods = ['GET','POST'])
+@login_required
 def deleteCatalogItem(category_id, item_id):
     if 'username' not in login_session:
         return redirect('/login')
