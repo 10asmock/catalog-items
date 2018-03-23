@@ -252,8 +252,8 @@ def editCategory(category_id):
     if 'username' not in login_session:
         return redirect('/login')
     if editedCategory.user_id != login_session['user_id']:
-        return \"<script>function myFunction() {alert('You are not authorized to edit this restaurant. Please
-                create your own restaurant in order to edit.');}</script><body onload='myFunction()'>\"
+        return \"<script>function myFunction() {alert('You are not authorized to edit this category. Please
+                create your own category in order to edit.');}</script><body onload='myFunction()'>\"
     if request.method == 'POST':
         if request.form['name']:
             editedCategory.name = request.form['name']
@@ -270,11 +270,12 @@ def editCategory(category_id):
             methods = ['GET','POST'])
 @login_required
 def deleteCategory(category_id):
+    deletedCategory = session.query(Category).filter_by(id = category_id).one()
     if 'username' not in login_session:
         return redirect('/login')
-    if 'username' not in login_session['user_id']:
-        return redirect('/login')
-    deletedCategory = session.query(Category).filter_by(id = category_id).one()
+    if deletedCategory.user_id != login_session['user_id']:
+        return \"<script>function myFunction() {alert('You are not authorized to delete this category. Please
+                create your own category to delete.');}</script><body onload='myFunction()'>\"
     if request.method == 'POST':
         session.delete(deletedCategory)
         session.commit()
@@ -315,11 +316,12 @@ def newCatalogItem(category_id):
             methods = ['GET','POST'])
 @login_required
 def editCatalogItem(category_id, item_id):
+    editedCatalogItem = session.query(CatalogItem).filter_by(id = item_id).one()
     if 'username' not in login_session:
         return redirect('/login')
-    if 'username' not in login_session['user_id']:
-        return redirect('/login')
-    editedCatalogItem = session.query(CatalogItem).filter_by(id = item_id).one()
+    if editedCatalogItem.user_id != login_session['user_id']:
+        return \"<script>function myFunction() {alert('You are not authorized to edit this catalog item. Please
+                create your own catalog item in order to edit.');}</script><body onload='myFunction()'>\"
     if request.method == 'POST':
         if request.form["name"]:
             editedCatalogItem.name = request.form["name"]
@@ -341,11 +343,12 @@ def editCatalogItem(category_id, item_id):
             methods = ['GET','POST'])
 @login_required
 def deleteCatalogItem(category_id, item_id):
+    deletedCatalogItem = session.query(CatalogItem).filter_by(id = item_id).one()
     if 'username' not in login_session:
         return redirect('/login')
-    if 'username' not in login_session['user_id']:
-        return redirect('/login')
-    deletedCatalogItem = session.query(CatalogItem).filter_by(id = item_id).one()
+    if deletedCatalogItem.user_id != login_session['user_id']:
+        return \"<script>function myFunction() {alert('You are not authorized to delete this catalog item. Please
+                create your own catalog item to delete.');}</script><body onload='myFunction()'>\"
     if request.method == 'POST':
         session.delete(deletedCatalogItem)
         session.commit()
