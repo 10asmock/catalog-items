@@ -51,6 +51,8 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 # Obtain authorization code
+
+
 code = request.data
 
 try:
@@ -261,7 +263,7 @@ def editCategory(category_id):
 @login_required
 def deleteCategory(category_id):
     """Delete an existing category"""
-    deletedCategory=session.query(Category).filter_by(id=category_id).one()
+    deletedCategory = session.query(Category).filter_by(id=category_id).one()
     if 'username' not in login_session:
         return redirect('/login')
     if deletedCategory.user_id != login_session['user_id']:
