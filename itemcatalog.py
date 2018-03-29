@@ -213,8 +213,8 @@ def login_required(function):
             function()
         else:
             flash('A user must be logged to add a new item.')
-            response = make_response(json.dumps(\ "A user must be logged in to
-                                                add a new item.\"), 401)
+            response = make_response(json.dumps("A user must be logged in to
+                                                add a new item."), 401)
             return response
         return wrapper
 
