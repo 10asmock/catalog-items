@@ -213,8 +213,8 @@ def login_required(function):
             function()
         else:
             flash('A user must be logged to add a new item.')
-            response = make_response(json.dumps("A user must be logged in
-                                                to add a new item."), 401)
+            response = make_response(json.dumps("A user must be logged in to
+                                                add a new item."), 401)
             return response
         return wrapper
 
@@ -277,8 +277,8 @@ def deleteCategory(category_id):
 @app.route('/categories/<int:category_id>/items', methods=['GET', 'POST'])
 def showCatalogItems(category_id):
     """Show all catalog items for a specific category"""
-    category=session.query(Category).filter_by(id=category_id).one()
-    items=session.query(CatalogItem).filter_by(category_id=category_id).all()
+    category = session.query(Category).filter_by(id=category_id).one()
+    items = session.query(CatalogItem).filter_by(category_id=category_id).all()
     return render_template('catalog.html', category=category, items=items)
 
 
@@ -291,9 +291,10 @@ def newCatalogItem(category_id):
     if login_session['user_id'] != category.user_id:
         return "<script>function myFunction() {alert('You are not authorized to add catalog items to this category. Please create your own category in order to add items.');}</script><body onload='myFunction()'>"
         if request.method == 'POST':
-            newCatalogItem=CatalogItem(
-            name=request.form['name'], description=request.form['description'],
-            price=request.form['price'], category_id=category_id)
+            newCatalogItem = CatalogItem(name=request.form['name'],
+                                         description=request.form['description'],
+                                         price=request.form['price'],
+                                         category_id=category_id)
             session.add(newCatalogItem)
             session.commit()
             return redirect(url_for('showCatalogItems',
@@ -307,25 +308,24 @@ def newCatalogItem(category_id):
 @login_required
 def editCatalogItem(category_id, item_id):
     """Edit a catalog item for a specific category"""
-    editedCatalogItem=session.query(CatalogItem).filter_by(id=item_id).one()
+    editedCatalogItem = session.query(CatalogItem).filter_by(id=item_id).one()
     if 'username' not in login_session:
         return redirect('/login')
     if editedCatalogItem.user_id != login_session['user_id']:
         return "<script> function myFunction(){alert('You are not authorized to edit this catalog item. Please create your own catalog item in order to edit.')} </script> <body onload='myFunction()'>"
     if request.method == 'POST':
         if request.form["name"]:
-            editedCatalogItem.name=request.form["name"]
+            editedCatalogItem.name = request.form["name"]
         if request.form["price"]:
-            editedCatalogItem.price=request.form["price"]
+            editedCatalogItem.price = request.form["price"]
         if request.form["description"]:
-            editedCatalogItem.description=request.form["description"]
+            editedCatalogItem.description = request.form["description"]
         session.add(editedCatalogItem)
         session.commit()
         return redirect(url_for('showCatalogItems', category_id=category_id))
     else:
         return render_template('editcatalogitem.html', category_id=category_id,
-                                                       item_id=item_id,
-                                                       item=editedCatalogItem)
+                               item_id=item_id, item=editedCatalogItem)
 
 
 @app.route('/categories/<int:category_id>/items/<int:item_id>/delete/',
@@ -333,7 +333,8 @@ def editCatalogItem(category_id, item_id):
 @login_required
 def deleteCatalogItem(category_id, item_id):
     """Delete a catelog item of a specific category"""
-    deletedCatalogItem=session.query(CatalogItem).filter_by(id=item_id).one()
+    deletedCatalogItem = session.query(CatalogItem).filter_by(
+        id=item_id).one()
     if 'username' not in login_session:
         return redirect('/login')
     if deletedCatalogItem.user_id != login_session['user_id']:
@@ -348,6 +349,6 @@ def deleteCatalogItem(category_id, item_id):
 
 
 if __name__ == '__main__':
-    app.secret_key='super_secret_key'
-    app.debug=True
+    app.secret_key = 'super_secret_key'
+    app.debug = True
     app.run(host='0.0.0.0', port=5000)
