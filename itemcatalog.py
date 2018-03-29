@@ -64,17 +64,17 @@ except FlowExchangeError:
     response = make_response(json.dumps(
                              'Failed to upgrade the authorization code.'), 401)
     response.headers['Content-Type'] = 'application/json'
-    return response
+return response
 
     # Check that the access token is valid.
-    access_token = credentials.access_token
-    url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
-           % access_token)
-    h = httplib2.Http()
-    result = json.loads(h.request(url, 'GET')[1])
+access_token = credentials.access_token
+url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
+       % access_token)
+h = httplib2.Http()
+result = json.loads(h.request(url, 'GET')[1])
     # If there was an error in the access token info, abort.
-    if result.get('error') is not None:
-        response = make_response(json.dumps(result.get('error')), 500)
+if result.get('error') is not None:
+    response = make_response(json.dumps(result.get('error')), 500)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -158,8 +158,7 @@ def gdisconnect():
             json.dumps('Current user not connected.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s'
-    % login_session['access_token']
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     if result['status'] == '200':
@@ -213,8 +212,8 @@ def login_required(function):
             function()
         else:
             flash('A user must be logged to add a new item.')
-            response = make_response(json.dumps("A user must be logged in to
-                                                add a new item."), 401)
+            response = make_response(json.dumps(
+              "A user must be logged in to add a new item."), 401)
             return response
         return wrapper
 
