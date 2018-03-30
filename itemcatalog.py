@@ -47,36 +47,34 @@ def showLogin():
 def gconnect():
     # Validate state token
     if request.args.get('state') != login_session['state']:
-        response = make_response(json.dumps('Invalid state parameter.'), 401)
+            response = make_response(json.dumps('Invalid state parameter.'), 401)
+            response.headers['Content-Type'] = 'application/json'
+            return response
+    # Obtain authorization code
+    code = request.data
+
+    try:
+        # Upgrade the authorization code into a credentials object
+        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow.redirect_uri = 'postmessage'
+        credentials = oauth_flow.step2_exchange(code)
+    except FlowExchangeError:
+        response = make_response(
+            json.dumps('Failed to upgrade the authorization code.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-# Obtain authorization code
-
-
-code = request.data
-
-try:
-    # Upgrade the authorization code into a credentials object
-    oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
-    oauth_flow.redirect_uri = 'postmessage'
-    credentials = oauth_flow.step2_exchange(code)
-except FlowExchangeError:
-    response = make_response(json.dumps(
-                             'Failed to upgrade the authorization code.'), 401)
-    response.headers['Content-Type'] = 'application/json'
-return response
 
     # Check that the access token is valid.
-access_token = credentials.access_token
-url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
-       % access_token)
-h = httplib2.Http()
-result = json.loads(h.request(url, 'GET')[1])
+    access_token = credentials.access_token
+    url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
+           % access_token)
+    h = httplib2.Http()
+    result = json.loads(h.request(url, 'GET')[1])
     # If there was an error in the access token info, abort.
-if result.get('error') is not None:
-    response = make_response(json.dumps(result.get('error')), 500)
-        response.headers['Content-Type'] = 'application/json'
-        return response
+    if result.get('error') is not None:
+         response = make_response(json.dumps(result.get('error')), 500)
+         response.headers['Content-Type'] = 'application/json'
+         return response
 
     # Verify that the access token is used for the intended user.
     gplus_id = credentials.id_token['sub']
@@ -97,7 +95,8 @@ if result.get('error') is not None:
     stored_access_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('User is already connected.'), 200)
+        response = make_response(json.dumps('User is already connected.'),
+                                 200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -127,6 +126,8 @@ if result.get('error') is not None:
 
 
 # User Helper Functions
+
+
 def createUser(login_session):
     newUser = User(name=login_session['username'],
                    email=login_session['email'],
@@ -149,6 +150,8 @@ def getUserID(email):
     except:
         return None
 
+# DISCONNECT - Revoke a current user's token and reset their login_session
+
 
 @app.route('/gdisconnect')
 def gdisconnect():
@@ -162,21 +165,16 @@ def gdisconnect():
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     if result['status'] == '200':
-        del login_session['access_token']
-        del login_session['gplus_id']
-        del login_session['username']
-        del login_session['email']
-        del login_session['picture']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
     else:
-        response = make_response(
-            json.dumps('Failed to revoke token for given user.', 400))
+        response = make_response(json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response
 
 
+# JSON APIs to view Restaurant Information
 @app.route('/categories/JSON')
 def showcategoriesJSON():
     category = session.query(Category).all()
@@ -186,7 +184,8 @@ def showcategoriesJSON():
 @app.route('/categories/<int:category_id>/items/JSON')
 def showCatalogJSON(category_id):
     category = session.query(Category).filter_by(id=category_id)
-    items = session.query(CatalogItem).filter_by(category_id=category_id)
+    items = session.query(CatalogItem).filter_by(
+        category_id=category_id)
     return jsonify(CatalogItem=[i.serialize for i in items])
 
 
@@ -213,9 +212,9 @@ def login_required(function):
         else:
             flash('A user must be logged to add a new item.')
             response = make_response(json.dumps(
-              "A user must be logged in to add a new item."), 401)
+            "A user must be logged in to add a new item."), 401)
             return response
-        return wrapper
+    return wrapper
 
 
 @app.route('/categories/new/', methods=['GET', 'POST'])
