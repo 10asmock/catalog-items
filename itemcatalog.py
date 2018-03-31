@@ -15,6 +15,7 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
 import json
+from functools import wraps
 from flask import make_response
 import requests
 
@@ -203,22 +204,7 @@ def showCategories():
     return render_template('categories.html', category=category)
 
 
-# Python decorator
-def login_required(function):
-    @wraps(function)
-    def wrapper():
-        if 'username' in login_session:
-            function()
-        else:
-            flash('A user must be logged to add a new item.')
-            response = make_response(json.dumps(
-            "A user must be logged in to add a new item."), 401)
-            return response
-    return wrapper
-
-
 @app.route('/categories/new/', methods=['GET', 'POST'])
-@login_required
 def newCategory():
     """Create a new category"""
     if 'username' not in login_session:
@@ -235,7 +221,6 @@ def newCategory():
 
 
 @app.route('/categories/<int:category_id>/edit/', methods=['GET', 'POST'])
-@login_required
 def editCategory(category_id):
     """Edit an existing category"""
     editedCategory = session.query(
@@ -249,11 +234,10 @@ def editCategory(category_id):
             editedCategory.name = request.form['name']
             return redirect(url_for('showCategories'))
     else:
-        return render_template('editCategory.html', category=editedCategory)
+        return render_template('editCategory.html', category=editedCategory, category_id=category_id)
 
 
 @app.route('/categories/<int:category_id>/delete/', methods=['GET', 'POST'])
-@login_required
 def deleteCategory(category_id):
     """Delete an existing category"""
     deletedCategory = session.query(Category).filter_by(id=category_id).one()
@@ -303,13 +287,13 @@ def newCatalogItem(category_id):
 
 @app.route('/categories/<int:category_id>/items/<int:item_id>/edit/',
            methods=['GET', 'POST'])
-@login_required
 def editCatalogItem(category_id, item_id):
     """Edit a catalog item for a specific category"""
     editedCatalogItem = session.query(CatalogItem).filter_by(id=item_id).one()
+    category = session.query(Category).filter_by(id=category_id).one()
     if 'username' not in login_session:
         return redirect('/login')
-    if editedCatalogItem.user_id != login_session['user_id']:
+    if login_session['user_id'] != category.user_id:
         return "<script> function myFunction(){alert('You are not authorized to edit this catalog item. Please create your own catalog item in order to edit.')} </script> <body onload='myFunction()'>"
     if request.method == 'POST':
         if request.form["name"]:
@@ -328,14 +312,14 @@ def editCatalogItem(category_id, item_id):
 
 @app.route('/categories/<int:category_id>/items/<int:item_id>/delete/',
            methods=['GET', 'POST'])
-@login_required
 def deleteCatalogItem(category_id, item_id):
     """Delete a catelog item of a specific category"""
-    deletedCatalogItem = session.query(CatalogItem).filter_by(
-        id=item_id).one()
     if 'username' not in login_session:
         return redirect('/login')
-    if deletedCatalogItem.user_id != login_session['user_id']:
+    category = session.query(Category).filter_by(id=category_id).one()
+    deletedCatalogItem = session.query(CatalogItem).filter_by(
+        id=item_id).one()
+    if login_session['user_id'] != category.user_id:
         return "<script> function myFunction() {alert('You are not authorized to delete this catalog item. Please create your own catalog item to delete.')} </script> <body onload='myFunction()'>"
     if request.method == 'POST':
         session.delete(deletedCatalogItem)
@@ -345,6 +329,24 @@ def deleteCatalogItem(category_id, item_id):
         return render_template('deletecatalogitem.html',
                                items=deletedCatalogItem)
 
+# Disconnect based on provider
+@app.route('/disconnect')
+def disconnect():
+    if 'provider' in login_session:
+        if login_session['provider'] == 'google':
+            gdisconnect()
+            del login_session['gplus_id']
+            del login_session['access_token']
+            del login_session['username']
+        del login_session['email']
+        del login_session['picture']
+        del login_session['user_id']
+        del login_session['provider']
+        flash("You have successfully been logged out.")
+        return redirect(url_for('showCategories'))
+    else:
+        flash("You were not logged in")
+        return redirect(url_for('showCategories'))
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
