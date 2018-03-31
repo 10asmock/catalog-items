@@ -48,9 +48,9 @@ def showLogin():
 def gconnect():
     # Validate state token
     if request.args.get('state') != login_session['state']:
-            response = make_response(json.dumps('Invalid state parameter.'), 401)
-            response.headers['Content-Type'] = 'application/json'
-            return response
+        response = make_response(json.dumps('Invalid state parameter.'), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
     # Obtain authorization code
     code = request.data
 
@@ -73,9 +73,9 @@ def gconnect():
     result = json.loads(h.request(url, 'GET')[1])
     # If there was an error in the access token info, abort.
     if result.get('error') is not None:
-         response = make_response(json.dumps(result.get('error')), 500)
-         response.headers['Content-Type'] = 'application/json'
-         return response
+        response = make_response(json.dumps(result.get('error')), 500)
+        response.headers['Content-Type'] = 'application/json'
+        return response
 
     # Verify that the access token is used for the intended user.
     gplus_id = credentials.id_token['sub']
@@ -330,6 +330,8 @@ def deleteCatalogItem(category_id, item_id):
                                items=deletedCatalogItem)
 
 # Disconnect based on provider
+
+
 @app.route('/disconnect')
 def disconnect():
     if 'provider' in login_session:
@@ -352,3 +354,4 @@ if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
+ 
