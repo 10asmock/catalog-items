@@ -123,6 +123,9 @@ def gconnect():
     if not user_id:
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
+    output = 'Successfully logged in!'
+    flash("you are now logged in as %s" % login_session['username'])
+    print "done!"
     return output
 
 
@@ -223,10 +226,10 @@ def newCategory():
 @app.route('/categories/<int:category_id>/edit/', methods=['GET', 'POST'])
 def editCategory(category_id):
     """Edit an existing category"""
-    editedCategory = session.query(
-        Category).filter_by(id=category_id).one()
     if 'username' not in login_session:
         return redirect('/login')
+    editedCategory = session.query(
+        Category).filter_by(id=category_id).one()
     if editedCategory.user_id != login_session['user_id']:
         return "<script>function myFunction(){alert('You are not authorized to edit this category.');} </script> <body onload='myFunction()'>"
     if request.method == 'POST':
@@ -240,9 +243,9 @@ def editCategory(category_id):
 @app.route('/categories/<int:category_id>/delete/', methods=['GET', 'POST'])
 def deleteCategory(category_id):
     """Delete an existing category"""
-    deletedCategory = session.query(Category).filter_by(id=category_id).one()
     if 'username' not in login_session:
         return redirect('/login')
+    deletedCategory = session.query(Category).filter_by(id=category_id).one()
     if deletedCategory.user_id != login_session['user_id']:
         return "<script> function myFunction() {alert('You are not authorized to delete this category. Please create your own category to delete.');}</script> <body onload='myFunction()'>"
     if request.method == 'POST':
@@ -272,8 +275,8 @@ def newCatalogItem(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
     if login_session['user_id'] != category.user_id:
         return "<script>function myFunction() {alert('You are not authorized to add catalog items to this category. Please create your own category in order to add items.');}</script><body onload='myFunction()'>"
-        if request.method == 'POST':
-            newCatalogItem = CatalogItem(name=request.form['name'],
+    if request.method == 'POST':
+      newCatalogItem = CatalogItem(name=request.form['name'],
                                          description=request.form['description'],
                                          price=request.form['price'],
                                          category_id=category_id)
@@ -289,10 +292,10 @@ def newCatalogItem(category_id):
            methods=['GET', 'POST'])
 def editCatalogItem(category_id, item_id):
     """Edit a catalog item for a specific category"""
-    editedCatalogItem = session.query(CatalogItem).filter_by(id=item_id).one()
-    category = session.query(Category).filter_by(id=category_id).one()
     if 'username' not in login_session:
         return redirect('/login')
+    editedCatalogItem = session.query(CatalogItem).filter_by(id=item_id).one()
+    category = session.query(Category).filter_by(id=category_id).one()
     if login_session['user_id'] != category.user_id:
         return "<script> function myFunction(){alert('You are not authorized to edit this catalog item. Please create your own catalog item in order to edit.')} </script> <body onload='myFunction()'>"
     if request.method == 'POST':
