@@ -276,14 +276,13 @@ def newCatalogItem(category_id):
     if login_session['user_id'] != category.user_id:
         return "<script>function myFunction() {alert('You are not authorized to add catalog items to this category. Please create your own category in order to add items.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
-      newCatalogItem = CatalogItem(name=request.form['name'],
-                                         description=request.form['description'],
-                                         price=request.form['price'],
-                                         category_id=category_id)
-            session.add(newCatalogItem)
-            session.commit()
-            return redirect(url_for('showCatalogItems',
-                                    category_id=category_id))
+        newCatalogItem = CatalogItem(name=request.form['name'],
+                                     description=request.form['description'],
+                                     price=request.form['price'],
+                                     category_id=category_id)
+        session.add(newCatalogItem)
+        session.commit()
+        return redirect(url_for('showCatalogItems', category_id=category_id))
     else:
         return render_template('newcatalogitem.html', category_id=category_id)
 
